@@ -2,38 +2,34 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// biblioteca de C++ evolução do <stdio.h>
-#include <iostream>
+// criando o conteudo dos nós da arvore
+struct item {
+    int cod;
+};
 
-// biblioteca para trabalhar com String
-#include <string>
+// criando um apelido para o item, para falicitar compreensao
+typedef struct item Item;
 
-// comando para o uso de "cout" para imprimir strings
-using namespace std;
 
-// função de limpar tela
-void limpaTela() {
-    system("CLS");
-}
+// criando nós da arvore
+struct node {
+    // variavel com o conteudo da arvore
+    Item item;
+
+    //ponteiro que aponta para a esqueda do nó
+    struct node *left;
+
+    //ponteiro que aponta para a direita do nó
+    struct node* right;
+
+};
+
+//craindo apelido para o nó da arvore
+typedef struct node Node;
 
 int main(){
 
-    int a = 10;
-    printf("O valor %d eh maior que 0 \n", a);
-
-    limpaTela();
-    
-    cout << "O valor "<< a << " eh maior que 0";
-
-    char palavra[4];
-    palavra[0] = 'A';
-    palavra[1] = 'l';
-    palavra[2] = 'e';
-    palavra[3] = 'x';
-
-    printf("\n %c%c%c%c", palavra[0], palavra[1], palavra[2], palavra[3]);
-
-
+    Node* root = NULL;
 
     return 0;
 }
