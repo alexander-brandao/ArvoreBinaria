@@ -89,7 +89,24 @@ void treeFree(Node *root){
     }
 }
 
-
+//funcao para buscar o endereco de um node
+Node* treeSearch(Node* root, int cod) {
+    
+    if (root != NULL) {
+        if (root->item.cod == cod) {
+            return root;
+        }
+        else {
+            if (cod > root->item.cod) {
+                return treeSearch(root->right, cod);
+            }
+            else {
+                return treeSearch(root->left, cod);
+            }
+        }
+    }
+    return NULL;
+}
 
 int main(){
 
@@ -99,9 +116,15 @@ int main(){
     root = insert(root, itemCreate(9));
     root = insert(root, itemCreate(20));
     root = insert(root, itemCreate(30));
-    
-
     treePrint(root);
+
+    Node* tmp = treeSearch(root, 30);
+    if (tmp == NULL) {
+        printf(">> elemento nao encontrado! \n");
+    }
+    else {
+        printf(">> Elemento encontrado! \n");
+    }
     treeFree(root);
     return 0;
 }
