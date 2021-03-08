@@ -20,7 +20,7 @@ struct node {
     struct node *left;
 
     //ponteiro que aponta para a direita do nó
-    struct node* right;
+    struct node *right;
 
 };
 
@@ -40,7 +40,7 @@ Item itemCreate(int cod){
     return item;
 }
 
-//funca para inserir elementos na arvore
+//funcao para inserir elementos na arvore
 Node *insert(Node *root, Item x) {
 
     //caso a arvore estaja vazia
@@ -106,6 +106,55 @@ Node* treeSearch(Node* root, int cod) {
         }
     }
     return NULL;
+}
+
+//funcao para remover um no da arvore
+Node* treeRemove(Node* root, int cod) {
+    
+    //lacos que fazem uma busca na arvore para encontrar o no que deseja ser removido
+    if (root != NULL) {
+        if (cod > root->item.cod) {
+            root->right = treeRemove(root->right, cod);
+        }
+        else if (cod < root->item.cod) {
+            root->left = treeRemove(root->left, cod);
+        }
+        // encontrou o elemento a ser removido
+        else {
+            
+            // quando o elemento nao tem filhos
+            if (root->left == NULL && root->right == NULL) {
+
+                // deleta o node da memoria e retorna NULL
+                free(root);
+                return NULL;
+            }
+            // quando o elemento tem filhos SOMENTE a direita
+            else if (root ->left == NULL && root->right != NULL) {
+
+                // variavel auxiliar que recebe filho direito do node removido
+                Node *aux = root->right;
+                // deleta o node da memoria
+                free(root);
+                // node pai recebe node neto(a direita)
+                return aux;
+            }
+            // quando o elemento tem filhos SOMENTE a esquerda
+            else if (root->left != NULL && root->right == NULL) {
+
+                // variavel auxiliar que recebe filho esquerdo do node removido
+                Node *aux = root->left;
+                //deleta o node da memoria
+                free(root);
+                // node pai recebe node neto(a esquerda)
+                return aux;
+            }
+            // quando o elemento tem 2 filhos, um esquerdo e o outro direito
+            else {
+              
+            }
+        }
+    }
 }
 
 int main(){
