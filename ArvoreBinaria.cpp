@@ -24,7 +24,7 @@ struct node {
 
 };
 
-//craindo apelido para o nó da arvore
+//criando apelido para o nó da arvore
 typedef struct node Node;
 
 // funcao para inicializar a arvore
@@ -108,14 +108,28 @@ Node* treeSearch(Node* root, int cod) {
     return NULL;
 }
 
+Node* treeMin(Node* root) {
+
+    if (root != NULL) {
+        Node* aux = root;
+        while (aux->left != NULL) {
+            aux = aux->left;
+        }
+        return aux;
+    }
+    return NULL;
+}
+
 //funcao para remover um no da arvore
 Node* treeRemove(Node* root, int cod) {
     
     //lacos que fazem uma busca na arvore para encontrar o no que deseja ser removido
     if (root != NULL) {
+        //procura na direita (usando a recursividade da funcao)
         if (cod > root->item.cod) {
             root->right = treeRemove(root->right, cod);
         }
+        // procura na esquerda (usando a recursividade da funcao)
         else if (cod < root->item.cod) {
             root->left = treeRemove(root->left, cod);
         }
@@ -151,7 +165,15 @@ Node* treeRemove(Node* root, int cod) {
             }
             // quando o elemento tem 2 filhos, um esquerdo e o outro direito
             else {
-              
+
+                /* cria uma variavel auxiliar do tipo node
+                que guarda o ultimo elemento esquerdo(menor) do filho da direita */ 
+                Node* aux = treeMin(root->right);
+                // cria uma copia do ultimo elemento abaixo do filho da direita
+                Item itemAux = aux->item;
+                // remove da arvore o ultimo elemento abaixo do filho da direita
+                root = treeRemove(root, itemAux.cod);
+                
             }
         }
     }
